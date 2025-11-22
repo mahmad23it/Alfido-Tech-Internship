@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Event Handling</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #F5FC28, #FB03EE);
+            transition: background 0.5s ease;
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 50px 60px;
+            text-align: center;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            width: 100%;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .icon {
+            font-size: 1.2em;
+        }
+
+        .subtitle {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 40px;
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+
+        .highlight {
+            color: #00ffff;
+            font-weight: 600;
+        }
+
+        #changeBtn {
+            padding: 18px 45px;
+            font-size: 18px;
+            font-weight: 700;
+            color: white;
+            background: linear-gradient(135deg, #00d4ff, #ff00ff);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #changeBtn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        #changeBtn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        #changeBtn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4);
+        }
+
+        #changeBtn:active {
+            transform: translateY(-1px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-text {
+            position: relative;
+            z-index: 1;
+        }
+
+        .color-display {
+            margin-top: 40px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            padding: 20px;
+            border-radius: 20px;
+        }
+
+        .color-label {
+            color: white;
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .color-code {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: white;
+            font-family: 'Courier New', monospace;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .events-list {
+            margin-top: 40px;
+            text-align: left;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            padding: 25px;
+            border-radius: 20px;
+        }
+
+        .events-title {
+            color: white;
+            font-weight: 600;
+            margin-bottom: 15px;
+            text-align: center;
+            font-size: 1.2em;
+        }
+
+        .event-item {
+            display: flex;
+            align-items: center;
+            color: white;
+            margin-bottom: 12px;
+            font-size: 1em;
+        }
+
+        .event-icon {
+            margin-right: 12px;
+            font-size: 1.2em;
+        }
+
+        .event-type {
+            color: #00ffff;
+            font-weight: 600;
+            margin-right: 8px;
+        }
+
+        .event-description {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .footer {
+            margin-top: 30px;
+            color: white;
+            font-size: 0.95em;
+            opacity: 0.9;
+        }
+
+        .footer a {
+            color: #00ffff;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .pulse {
+            animation: pulse 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>
+            <span class="icon">🎨</span>
+            JavaScript Event Handling
+        </h1>
+        
+        <p class="subtitle">
+            Click the button below to change the background color to a random gradient. Try hovering, double-clicking, or pressing <span class="highlight">Space</span>!
+        </p>
+
+        <button id="changeBtn">
+            <span class="btn-text">Change Background</span>
+        </button>
+
+        <div class="color-display">
+            <div class="color-label">Current Gradient: </div>
+            <div class="color-code" id="colorCode">#F5FC28 → #FB03EE</div>
+        </div>
+
+        <div class="events-list">
+            <div class="events-title">Events Demonstrated:</div>
+            <div class="event-item">
+                <span class="event-icon">✓</span>
+                <span class="event-type">Click</span>
+                <span class="event-description">— Change background color</span>
+            </div>
+            <div class="event-item">
+                <span class="event-icon">✓</span>
+                <span class="event-type">Mouseover</span>
+                <span class="event-description">— Glow animation</span>
+            </div>
+            <div class="event-item">
+                <span class="event-icon">✓</span>
+                <span class="event-type">DblClick</span>
+                <span class="event-description">— Reset color</span>
+            </div>
+            <div class="event-item">
+                <span class="event-icon">✓</span>
+                <span class="event-type">Keypress (Space)</span>
+                <span class="event-description">— Trigger color change</span>
+            </div>
+            <div class="event-item">
+                <span class="event-icon">✓</span>
+                <span class="event-type">On Load</span>
+                <span class="event-description">— Copy color code</span>
+            </div>
+        </div>
+
+        <div class="footer">
+            Made with 💜 by <a href="#">Mushtaq</a>
+        </div>
+    </div>
+
+    <script>
+        // Get the button and color display elements
+        const changeBtn = document.getElementById('changeBtn');
+        const colorCode = document.getElementById('colorCode');
+        const body = document.body;
+
+        // Function to generate a random hex color
+        function getRandomColor() {
+            const letters = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
+        // Function to change the background to a random gradient
+        function changeBackground() {
+            const color1 = getRandomColor();
+            const color2 = getRandomColor();
+            const gradient = `linear-gradient(135deg, ${color1}, ${color2})`;
+            
+            body.style.background = gradient;
+            colorCode.textContent = `${color1} → ${color2}`;
+            
+            // Add pulse animation to the color display
+            colorCode.parentElement.classList.add('pulse');
+            setTimeout(() => {
+                colorCode.parentElement.classList.remove('pulse');
+            }, 300);
+        }
+
+        // Event 1: Click event
+        changeBtn.addEventListener('click', changeBackground);
+
+        // Event 2: Mouseover event (for additional interaction)
+        changeBtn.addEventListener('mouseover', function() {
+            this.style.transform = 'translateY(-3px) scale(1.02)';
+        });
+
+        changeBtn.addEventListener('mouseout', function() {
+            this.style.transform = '';
+        });
+
+        // Event 3: Double-click event to reset to original colors
+        changeBtn.addEventListener('dblclick', function(e) {
+            e.preventDefault();
+            body.style.background = 'linear-gradient(135deg, #F5FC28, #FB03EE)';
+            colorCode.textContent = '#F5FC28 → #FB03EE';
+        });
+
+        // Event 4: Keyboard event (pressing Space key triggers color change)
+        document.addEventListener('keydown', function(e) {
+            if (e.code === 'Space') {
+                e.preventDefault();
+                changeBackground();
+                changeBtn.classList.add('pulse');
+                setTimeout(() => {
+                    changeBtn.classList.remove('pulse');
+                }, 300);
+            }
+        });
+
+        // Event 5: Click on color code to copy it
+        colorCode.addEventListener('click', function() {
+            const text = this.textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = this.textContent;
+                this.textContent = 'Copied! ✓';
+                setTimeout(() => {
+                    this.textContent = originalText;
+                }, 1500);
+            });
+        });
+    </script>
+</body>
+</html>

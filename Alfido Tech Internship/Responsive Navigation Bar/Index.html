@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alfido Tech - Responsive Navigation</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a2332 0%, #2d4a5a 100%);
+            min-height: 100vh;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        /* Navigation Styling */
+        .navbar {
+            background: rgba(30, 50, 65, 0.85) !important;
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            border-radius: 20px;
+            margin: 20px;
+        }
+
+        .navbar-brand {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .navbar-brand .alf {
+            color: #4dd0e1;
+        }
+
+        .navbar-brand .tech {
+            color: #ab47bc;
+        }
+
+        .navbar-nav {
+            gap: 0.5rem;
+        }
+
+        .nav-link {
+            color: #b0bec5 !important;
+            font-size: 1rem;
+            font-weight: 500;
+            padding: 0.6rem 1.2rem !important;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: #ffffff !important;
+            background: rgba(77, 208, 225, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .nav-link.active {
+            color: #ffffff !important;
+            background: linear-gradient(135deg, rgba(77, 208, 225, 0.2), rgba(171, 71, 188, 0.2));
+            border: 1px solid rgba(77, 208, 225, 0.3);
+        }
+
+        /* Hamburger Menu Styling */
+        .navbar-toggler {
+            border: none;
+            padding: 0.5rem;
+        }
+
+        .navbar-toggler:focus {
+            box-shadow: none;
+        }
+
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.8%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+
+        /* Content Section */
+        .content-section {
+            margin: 40px 20px;
+            padding: 3rem;
+            background: rgba(30, 50, 65, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .content-section h1 {
+            color: #4dd0e1;
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .content-section .company-name {
+            color: #ab47bc;
+        }
+
+        .content-section p {
+            color: #b0bec5;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .info-item {
+            color: #eceff1;
+            font-size: 1rem;
+            line-height: 2;
+            margin: 1rem 0;
+        }
+
+        .info-item strong {
+            color: #4dd0e1;
+        }
+
+        .emoji {
+            margin-right: 0.5rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 991px) {
+            .navbar {
+                margin: 10px;
+                padding: 1rem;
+            }
+
+            .navbar-collapse {
+                margin-top: 1rem;
+            }
+
+            .nav-link {
+                margin: 0.3rem 0;
+            }
+
+            .content-section {
+                margin: 20px 10px;
+                padding: 2rem 1.5rem;
+            }
+
+            .content-section h1 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .navbar-brand {
+                font-size: 1.5rem;
+            }
+
+            .content-section h1 {
+                font-size: 1.7rem;
+            }
+
+            .content-section p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Responsive Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#home">
+                <span class="alf">ALF</span><span class="tech">IDO TECH</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#projects">Projects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#internships">Internships</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#careers">Careers</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Content Section -->
+    <div class="content-section">
+        <h1>About <span class="company-name">Alfido Tech</span></h1>
+        
+        <p>
+            <strong>Alfido Tech</strong> is a next-generation technology and innovation company focused on 
+            empowering aspiring developers, learners, and businesses to grow with modern digital 
+            solutions. Our mission is to make technical education, internships, and project development 
+            accessible to everyone through a hands-on approach.
+        </p>
+
+        <div class="info-item">
+            <span class="emoji">🚀</span>
+            <strong>Vision:</strong> To become a leading platform for learning, innovation, and digital transformation.
+        </div>
+
+        <div class="info-item">
+            <span class="emoji">🌱</span>
+            <strong>Future Growth:</strong> Alfido Tech is expanding into AI-powered tools, web automation, and 
+            advanced internship platforms to nurture the next wave of skilled developers and innovators.
+        </div>
+
+        <div class="info-item">
+            <span class="emoji">💡</span>
+            <strong>Goal:</strong> Build a strong, open, and futuristic ecosystem for tech learners to create real-world 
+            projects while gaining professional exposure.
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Add active class on click
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Remove active class from all links
+                document.querySelectorAll('.nav-link').forEach(nav => {
+                    nav.classList.remove('active');
+                });
+                
+                // Add active class to clicked link
+                this.classList.add('active');
+                
+                // Close navbar on mobile after clicking
+                const navbarCollapse = document.querySelector('.navbar-collapse');
+                if (navbarCollapse.classList.contains('show')) {
+                    const bsCollapse = new bootstrap.Collapse(navbarCollapse);
+                    bsCollapse.hide();
+                }
+                
+                // Smooth scroll to section (if sections exist)
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                if (targetSection) {
+                    targetSection.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

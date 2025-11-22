@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alfido Tech - Glassy To-Do</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #1a2a3a 0%, #2d4a5a 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1000px;
+            background: rgba(30, 50, 65, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .header {
+            margin-bottom: 30px;
+        }
+
+        .title {
+            font-size: 28px;
+            font-weight: 600;
+            background: linear-gradient(90deg, #4dd0e1 0%, #9c27b0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+        }
+
+        .gradient-line {
+            height: 3px;
+            background: linear-gradient(90deg, #4dd0e1 0%, #7b1fa2 50%, #9c27b0 100%);
+            border-radius: 2px;
+        }
+
+        .input-section {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .task-input {
+            flex: 1;
+            min-width: 250px;
+            padding: 15px 20px;
+            background: rgba(45, 65, 80, 0.8);
+            border: 1px solid rgba(77, 208, 225, 0.3);
+            border-radius: 10px;
+            color: #a0aec0;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .task-input:focus {
+            border-color: #4dd0e1;
+            background: rgba(45, 65, 80, 0.95);
+        }
+
+        .task-input::placeholder {
+            color: #6b7280;
+        }
+
+        .date-input {
+            padding: 15px 20px;
+            background: rgba(45, 65, 80, 0.8);
+            border: 1px solid rgba(77, 208, 225, 0.3);
+            border-radius: 10px;
+            color: #a0aec0;
+            font-size: 14px;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .priority-select {
+            padding: 15px 20px;
+            background: rgba(45, 65, 80, 0.8);
+            border: 1px solid rgba(77, 208, 225, 0.3);
+            border-radius: 10px;
+            color: #a0aec0;
+            font-size: 14px;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .add-btn {
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #4dd0e1 0%, #9c27b0 100%);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .add-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(77, 208, 225, 0.4);
+        }
+
+        .add-btn:active {
+            transform: translateY(0);
+        }
+
+        .filter-section {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .filter-btn {
+            padding: 10px 20px;
+            background: rgba(45, 65, 80, 0.8);
+            border: 1px solid rgba(77, 208, 225, 0.3);
+            border-radius: 8px;
+            color: #a0aec0;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .filter-btn.active {
+            background: linear-gradient(135deg, #4dd0e1 0%, #9c27b0 100%);
+            border-color: transparent;
+            color: white;
+        }
+
+        .search-input {
+            flex: 1;
+            min-width: 200px;
+            padding: 10px 20px;
+            background: rgba(45, 65, 80, 0.8);
+            border: 1px solid rgba(77, 208, 225, 0.3);
+            border-radius: 8px;
+            color: #a0aec0;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .action-btn {
+            padding: 10px 20px;
+            background: rgba(45, 65, 80, 0.8);
+            border: 1px solid rgba(77, 208, 225, 0.3);
+            border-radius: 8px;
+            color: #a0aec0;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .action-btn:hover {
+            border-color: #4dd0e1;
+            color: #4dd0e1;
+        }
+
+        .tasks-container {
+            min-height: 200px;
+            margin-bottom: 20px;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #6b7280;
+            font-size: 16px;
+        }
+
+        .task-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 20px;
+            background: rgba(45, 65, 80, 0.6);
+            border: 1px solid rgba(77, 208, 225, 0.2);
+            border-radius: 10px;
+            margin-bottom: 10px;
+            transition: all 0.3s;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .task-item:hover {
+            background: rgba(45, 65, 80, 0.8);
+            border-color: rgba(77, 208, 225, 0.4);
+        }
+
+        .task-checkbox {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: #4dd0e1;
+        }
+
+        .task-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .task-text {
+            flex: 1;
+            color: #e2e8f0;
+            font-size: 14px;
+        }
+
+        .task-item.completed .task-text {
+            text-decoration: line-through;
+            color: #6b7280;
+        }
+
+        .task-date {
+            color: #6b7280;
+            font-size: 12px;
+        }
+
+        .task-priority {
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .priority-high {
+            background: rgba(239, 68, 68, 0.2);
+            color: #f87171;
+        }
+
+        .priority-medium {
+            background: rgba(251, 191, 36, 0.2);
+            color: #fbbf24;
+        }
+
+        .priority-low {
+            background: rgba(34, 197, 94, 0.2);
+            color: #4ade80;
+        }
+
+        .delete-btn {
+            padding: 8px 16px;
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 6px;
+            color: #f87171;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .delete-btn:hover {
+            background: rgba(239, 68, 68, 0.3);
+            border-color: #f87171;
+        }
+
+        .stats {
+            color: #6b7280;
+            font-size: 14px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(77, 208, 225, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="title">ALFIDO TECH — GLASSY TO-DO</div>
+            <div class="gradient-line"></div>
+        </div>
+
+        <div class="input-section">
+            <input type="text" class="task-input" id="taskInput" placeholder="What needs to be done? (Press Enter to add)">
+            <input type="date" class="date-input" id="dateInput">
+            <select class="priority-select" id="prioritySelect">
+                <option value="low">Priority: Low</option>
+                <option value="medium">Priority: Medium</option>
+                <option value="high">Priority: High</option>
+            </select>
+            <button class="add-btn" id="addBtn">+ Add Task</button>
+        </div>
+
+        <div class="filter-section">
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="active">Active</button>
+                <button class="filter-btn" data-filter="completed">Completed</button>
+                <button class="filter-btn" data-filter="clear">Clear Completed</button>
+            </div>
+            <input type="text" class="search-input" id="searchInput" placeholder="🔍 Search tasks...">
+            <div class="action-buttons">
+                <button class="action-btn" id="exportBtn">Export</button>
+                <button class="action-btn" id="importBtn">Import</button>
+            </div>
+        </div>
+
+        <div class="tasks-container" id="tasksContainer">
+            <div class="empty-state">No tasks yet. Add your first task! ✨</div>
+        </div>
+
+        <div class="stats" id="stats">0 total • 0 completed • 0 active</div>
+    </div>
+
+    <script>
+        let tasks = [];
+        let currentFilter = 'all';
+        let searchQuery = '';
+
+        const taskInput = document.getElementById('taskInput');
+        const dateInput = document.getElementById('dateInput');
+        const prioritySelect = document.getElementById('prioritySelect');
+        const addBtn = document.getElementById('addBtn');
+        const tasksContainer = document.getElementById('tasksContainer');
+        const stats = document.getElementById('stats');
+        const searchInput = document.getElementById('searchInput');
+        const filterBtns = document.querySelectorAll('.filter-btn');
+
+        function addTask() {
+            const text = taskInput.value.trim();
+            if (!text) return;
+
+            const task = {
+                id: Date.now(),
+                text: text,
+                completed: false,
+                date: dateInput.value,
+                priority: prioritySelect.value
+            };
+
+            tasks.unshift(task);
+            taskInput.value = '';
+            dateInput.value = '';
+            prioritySelect.value = 'low';
+            renderTasks();
+        }
+
+        function deleteTask(id) {
+            tasks = tasks.filter(task => task.id !== id);
+            renderTasks();
+        }
+
+        function toggleTask(id) {
+            const task = tasks.find(t => t.id === id);
+            if (task) {
+                task.completed = !task.completed;
+                renderTasks();
+            }
+        }
+
+        function clearCompleted() {
+            tasks = tasks.filter(task => !task.completed);
+            renderTasks();
+        }
+
+        function getFilteredTasks() {
+            let filtered = tasks;
+
+            if (currentFilter === 'active') {
+                filtered = filtered.filter(task => !task.completed);
+            } else if (currentFilter === 'completed') {
+                filtered = filtered.filter(task => task.completed);
+            }
+
+            if (searchQuery) {
+                filtered = filtered.filter(task => 
+                    task.text.toLowerCase().includes(searchQuery.toLowerCase())
+                );
+            }
+
+            return filtered;
+        }
+
+        function renderTasks() {
+            const filtered = getFilteredTasks();
+
+            if (filtered.length === 0) {
+                tasksContainer.innerHTML = '<div class="empty-state">No tasks yet. Add your first task! ✨</div>';
+            } else {
+                tasksContainer.innerHTML = filtered.map(task => `
+                    <div class="task-item ${task.completed ? 'completed' : ''}">
+                        <input type="checkbox" class="task-checkbox" ${task.completed ? 'checked' : ''} onchange="toggleTask(${task.id})">
+                        <div class="task-content">
+                            <div class="task-text">${task.text}</div>
+                            ${task.date ? `<div class="task-date">${task.date}</div>` : ''}
+                            <div class="task-priority priority-${task.priority}">${task.priority.toUpperCase()}</div>
+                        </div>
+                        <button class="delete-btn" onclick="deleteTask(${task.id})">Delete</button>
+                    </div>
+                `).join('');
+            }
+
+            updateStats();
+        }
+
+        function updateStats() {
+            const total = tasks.length;
+            const completed = tasks.filter(t => t.completed).length;
+            const active = total - completed;
+            stats.textContent = `${total} total • ${completed} completed • ${active} active`;
+        }
+
+        addBtn.addEventListener('click', addTask);
+        taskInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') addTask();
+        });
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const filter = btn.dataset.filter;
+                
+                if (filter === 'clear') {
+                    clearCompleted();
+                    return;
+                }
+
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentFilter = filter;
+                renderTasks();
+            });
+        });
+
+        searchInput.addEventListener('input', (e) => {
+            searchQuery = e.target.value;
+            renderTasks();
+        });
+
+        document.getElementById('exportBtn').addEventListener('click', () => {
+            const dataStr = JSON.stringify(tasks, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'tasks.json';
+            link.click();
+        });
+
+        document.getElementById('importBtn').addEventListener('click', () => {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.json';
+            input.onchange = (e) => {
+                const file = e.target.files[0];
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    try {
+                        tasks = JSON.parse(event.target.result);
+                        renderTasks();
+                    } catch (error) {
+                        alert('Invalid file format');
+                    }
+                };
+                reader.readAsText(file);
+            };
+            input.click();
+        });
+
+        renderTasks();
+    </script>
+</body>
+</html>
