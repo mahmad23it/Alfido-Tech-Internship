@@ -25,14 +25,3 @@ Each task reflects my learning in UI/UX design, styling, DOM manipulation, and c
 ✔ Improving debugging & problem-solving skills  
 ✔ Writing clean and reusable code  
 
----
-
-## 📸 Output / Screenshots
-If screenshots or previews are included inside task folders, they represent the visual output of each assignment.
-
----
-
-## 📎 Live Demo Links (optional)
-> Add your deployed project links here if uploaded on **GitHub Pages / Netlify / Vercel**.
-
-Example:
