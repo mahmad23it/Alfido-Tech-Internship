@@ -9,18 +9,6 @@ The internship helped me gain practical experience in building responsive, inter
 During this internship, I worked on multiple hands-on assignments focused on frontend development.  
 Each task reflects my learning in UI/UX design, styling, DOM manipulation, and creating responsive layouts.
 
----
-
-## 📂 Repository Structure
-| Folder / Project | Description |
-|------------------|-------------|
-| **Task 1** | Responsive web page using HTML & CSS |
-| **Task 2** | Interactive webpage with JavaScript functionality |
-| **Task 3** | Major project / Portfolio website development |
-
-> Each folder contains a separate project with source code, assets, and output screenshots (if applicable).
-
----
 
 ## 🧑‍💻 Technologies Used
 - **HTML5**
